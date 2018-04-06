@@ -1,0 +1,46 @@
+import { Injectable } from '@angular/core';
+
+import { User } from '../models/user.model';
+
+@Injectable()
+export class AppData {
+
+  private _user: User; // Currently logged in user
+
+  /**
+   * Getter method for logged in user
+   *
+   * @return The logged in user
+   */
+  get user(): User {
+    return this._user;
+  }
+
+  /**
+   * Setter method for logged in user
+   *
+   * @param user The user that has just logged in
+   */
+  set user(user: User) {
+    this._user = user;
+  }
+
+  /**
+   * Gets a user from local browser storage if he/she has logged in before
+   *
+   * @return The userId of the user
+   */
+  getSavedUser(): string {
+    return window.localStorage['userId'];
+  }
+
+  /**
+   * Saves a user to local browser storage for future auto login
+   *
+   * @param userId The userId of the user saved in browser storage
+   * */
+  saveUser(userId: string) {
+    window.localStorage['userId'] = userId;
+  }
+
+}

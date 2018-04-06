@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content text-center>
+  <ion-grid fixed>
+    <h1>Computer Inventory System</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+            <p *ngIf="error != ''" class="error">{{ error }}</p>
+            <label ion-item class="text-cursor">
+              <ion-input type="text" formControlName="username"></ion-input>
+              <ion-label>Username</ion-label>
+            </label>
+            <label ion-item class="text-cursor">
+              <ion-input type="password" formControlName="password"></ion-input>
+              <ion-label>Password</ion-label>
+            </label>
+            <ion-item class="empty"></ion-item> <!-- This is to add a bottom border to password -->
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button ion-button class="submit-btn" type="submit">Login</button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

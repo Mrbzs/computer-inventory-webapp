@@ -4,6 +4,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { HomePage } from '../pages/home/home';
 import { AddEquipmentPage } from '../pages/add-equipment/add-equipment';
+import { LoginPage } from '../pages/login/login';
+import { AppData } from '../providers/app-data.service';
+import { ApiService } from '../providers/api.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -12,12 +15,15 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
-  pages: Array<{title: string, component: any, isAdminOnly: boolean}>;
-  activePage: any;
+  public rootPage: any = LoginPage;
+  public pages: Array<{title: string, component: any, isAdminOnly: boolean}>;
+  public activePage: any;
 
   constructor(public platform: Platform,
-    public statusBar: StatusBar) {
+    public statusBar: StatusBar,
+    public appData: AppData,
+    public apiService: ApiService) {
+
     platform.ready().then(() => {
       statusBar.styleDefault();
     });
@@ -36,6 +42,26 @@ export class MyApp {
     ];
 
     this.activePage = this.pages[0];
+
+    this.autoLogin();
+
+  }
+
+  /**
+   * Checks if user exists in local browser storage and logs them in if so
+   */
+  autoLogin() {
+    let userId = window.localStorage['userId'];
+
+    // Save user and navigate to home page
+    if (userId) {
+      this.apiService.getUserById(userId).subscribe( user => {
+        if (user) {
+          this.appData.user = user;
+          this.nav.setRoot(HomePage);
+        }
+      });
+    }
   }
 
   /**

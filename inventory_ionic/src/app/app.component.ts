@@ -51,7 +51,7 @@ export class MyApp {
    * Checks if user exists in local browser storage and logs them in if so
    */
   autoLogin() {
-    let userId = window.localStorage['userId'];
+    let userId = this.appData.getSavedUser();
 
     // Save user and navigate to home page
     if (userId) {

@@ -43,4 +43,13 @@ export class AppData {
     window.localStorage['userId'] = userId;
   }
 
+  /**
+   * Checks if a user is logged in
+   *
+   * @return True if user is logged in, false otherwise
+   */
+  isLoggedIn(): boolean {
+    return !!this.user;
+  }
+
 }

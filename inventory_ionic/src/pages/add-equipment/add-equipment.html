@@ -8,5 +8,32 @@
 </ion-header>
 
 <ion-content text-center>
+  <ion-grid fixed>
+    <form [formGroup]="addEquipmentForm" (ngSubmit)="addEquipment()">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <p padding-left *ngIf="error != ''" class="error">{{ error }}</p>
+            <label ion-item class="text-cursor">
+              <ion-label>Name</ion-label>
+              <ion-input formControlName="name" type="text" text-right></ion-input>
+            </label>
 
+            <label ion-item class="text-cursor">
+              <ion-label>Description</ion-label>
+              <ion-input formControlName="description" maxlength="60" type="text" text-right></ion-input>
+            </label>
+
+            <ion-item>
+              <ion-label>Type</ion-label>
+              <ion-select formControlName="type">
+                <ion-option *ngFor="let type of types" [value]="type">{{ type }}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+          <button ion-button type="submit">Add Equipment</button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
 </ion-content>

@@ -27,4 +27,17 @@ ion-menu {
 
 }
 
+.text-cursor {
+  cursor: text;
+}
 
+/* This is because in firefox, message box has scroll bar on the side even when empty */
+.alert-message {
+  overflow-y: auto !important;
+}
+
+.error {
+  text-align: left;
+  color: red;
+  font-size: 16px;
+}

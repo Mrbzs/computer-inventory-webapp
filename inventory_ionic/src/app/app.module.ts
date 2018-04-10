@@ -11,6 +11,7 @@ import { AddEquipmentPage } from '../pages/add-equipment/add-equipment';
 import { LoginPage } from '../pages/login/login';
 import { ApiService } from '../providers/api.service';
 import { AppData } from '../providers/app-data.service';
+import { UtilitiesService } from '../providers/utilities.service';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AppData } from '../providers/app-data.service';
     SplashScreen,
     ApiService,
     AppData,
+    UtilitiesService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

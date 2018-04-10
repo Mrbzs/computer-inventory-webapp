@@ -5,9 +5,12 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
 import { User } from '../models/user.model';
+import { Equipment } from '../models/equipment.model';
 
 @Injectable()
 export class ApiService {
+
+  private serverURL = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {
 
@@ -21,7 +24,7 @@ export class ApiService {
    * @return Returns the logged in user as an observable or undefined if no user found
    */
   login(username: string, password: string): Observable<User> {
-    return this.http.get<Array<User>>('assets/data/users.json').map(data => {
+    return this.http.get<Array<User>>(`${this.serverURL}/users`).map(data => {
       let dummyUser: User;
       for (let user of data) {
         if (username === user.username && password === user.password) {
@@ -39,7 +42,7 @@ export class ApiService {
    * @return Returns the user with the specified userId or undefined if no user found
    */
   getUserById(userId: string): Observable<User> {
-    return this.http.get<Array<User>>('assets/data/users.json').map(data => {
+    return this.http.get<Array<User>>(`${this.serverURL}/users`).map(data => {
       let dummyUser: User;
       for (let user of data) {
         if (userId == user.id) {
@@ -48,6 +51,10 @@ export class ApiService {
       }
       return dummyUser;
     });
+  }
+
+  addEquipment(equipment: Equipment): Observable<Equipment> {
+    return this.http.post<Equipment>(`${this.serverURL}/equipments`, equipment);
   }
 
 }

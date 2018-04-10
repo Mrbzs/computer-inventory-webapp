@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AppData } from '../../providers/app-data.service';
-import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -12,9 +11,13 @@ export class HomePage {
   constructor(public navCtrl: NavController,
     public appData: AppData) {
 
-    // Redirect user to login screen if he/she is not logged in
+  }
+
+  ionViewWillEnter() {
+
+    // Redirect user to login if not logged in
     if (!this.appData.isLoggedIn())
-      this.navCtrl.setRoot(LoginPage);
+      this.navCtrl.setRoot('login');
   }
 
 }

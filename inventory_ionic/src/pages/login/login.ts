@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-
 import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../providers/api.service';
-import { HomePage } from '../home/home';
 import { AppData } from '../../providers/app-data.service';
 
 import * as shajs from 'sha.js';
@@ -55,7 +53,7 @@ export class LoginPage {
         this.appData.saveUser(response.id);
 
         // Navigate to home page
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot('home');
       }
       else this.error = 'Invalid username/password combination';
     });

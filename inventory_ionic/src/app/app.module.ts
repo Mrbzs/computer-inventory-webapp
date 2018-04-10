@@ -7,8 +7,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { AddEquipmentPage } from '../pages/add-equipment/add-equipment';
 import { LoginPage } from '../pages/login/login';
+import { AddEquipmentPage } from '../pages/add-equipment/add-equipment';
+import { AddLabAssistantPage } from '../pages/add-lab-assistant/add-lab-assistant';
+import { AddStaffPage } from '../pages/add-staff/add-staff';
 import { ApiService } from '../providers/api.service';
 import { AppData } from '../providers/app-data.service';
 import { UtilitiesService } from '../providers/utilities.service';
@@ -17,19 +19,23 @@ import { UtilitiesService } from '../providers/utilities.service';
   declarations: [
     MyApp,
     HomePage,
+    LoginPage,
     AddEquipmentPage,
-    LoginPage
+    AddLabAssistantPage,
+    AddStaffPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp, {
-
+      //locationStrategy: 'path'
     }, {
       links: [
-        { component: LoginPage, name: 'Login', segment: 'login' },
-        { component: HomePage, name: 'Home', segment: 'home' },
-        { component: AddEquipmentPage, name: 'Add Equipment', segment: 'add-equipment' }
+        { component: HomePage, name: 'home', segment: 'home' },
+        { component: LoginPage, name: 'login', segment: 'login' },
+        { component: AddEquipmentPage, name: 'add-equipment', segment: 'add-equipment' },
+        { component: AddLabAssistantPage, name: 'add-lab-assistant', segment: 'add-lab-assistant' },
+        { component: AddStaffPage, name: 'add-staff', segment: 'add-staff' }
       ]
     })
   ],
@@ -37,8 +43,10 @@ import { UtilitiesService } from '../providers/utilities.service';
   entryComponents: [
     MyApp,
     HomePage,
+    LoginPage,
     AddEquipmentPage,
-    LoginPage
+    AddLabAssistantPage,
+    AddStaffPage
   ],
   providers: [
     StatusBar,

@@ -3,8 +3,10 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { HomePage } from '../pages/home/home';
-import { AddEquipmentPage } from '../pages/add-equipment/add-equipment';
 import { LoginPage } from '../pages/login/login';
+import { AddEquipmentPage } from '../pages/add-equipment/add-equipment';
+import { AddLabAssistantPage } from '../pages/add-lab-assistant/add-lab-assistant';
+import { AddStaffPage } from '../pages/add-staff/add-staff';
 import { AppData } from '../providers/app-data.service';
 import { ApiService } from '../providers/api.service';
 
@@ -31,8 +33,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage, isAdminOnly: false },
       { title: 'Add Equipment', component: AddEquipmentPage, isAdminOnly: true },
-      // { title: 'Add Lab Assistant', component: AddLabAssistantPage, isAdminOnly: true },
-      // { title: 'Add Staff', component: AddStaffPage, isAdminOnly: true },
+      { title: 'Add Lab Assistant', component: AddLabAssistantPage, isAdminOnly: true },
+      { title: 'Add Staff', component: AddStaffPage, isAdminOnly: true },
       // { title: 'Delete Equipment', component: DeleteEquipmentPage, isAdminOnly: true },
       // { title: 'Delete Lab Assistant', component: DeleteLabAssistantPage, isAdminOnly: true },
       // { title: 'Delete Staff', component: DeleteStaffPage, isAdminOnly: true },
@@ -58,7 +60,7 @@ export class MyApp {
       this.apiService.getUserById(userId).subscribe( user => {
         if (user) {
           this.appData.user = user;
-          this.nav.setRoot(HomePage);
+          this.nav.setRoot('home');
         }
       });
     }

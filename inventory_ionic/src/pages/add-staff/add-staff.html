@@ -3,13 +3,13 @@
     <button ion-button menuToggle>
       <ion-icon color="white" name="menu"></ion-icon>
     </button>
-    <ion-title>Add Equipment</ion-title>
+    <ion-title>Add Staff</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content text-center>
   <ion-grid fixed>
-    <form [formGroup]="addEquipmentForm" (ngSubmit)="addEquipment()">
+    <form [formGroup]="addStaffForm" (ngSubmit)="addStaff()">
       <ion-list>
         <p padding-left *ngIf="error != ''" class="error">{{ error }}</p>
         <label ion-item class="text-cursor">
@@ -18,18 +18,11 @@
         </label>
 
         <label ion-item class="text-cursor">
-          <ion-label>Description</ion-label>
-          <ion-input formControlName="description" maxlength="60" type="text" text-right></ion-input>
+          <ion-label>Office</ion-label>
+          <ion-input formControlName="office" maxlength="50" type="text" text-right></ion-input>
         </label>
-
-        <ion-item>
-          <ion-label>Type</ion-label>
-          <ion-select formControlName="type">
-            <ion-option *ngFor="let type of types" [value]="type">{{ type }}</ion-option>
-          </ion-select>
-        </ion-item>
+        <button margin-top ion-button type="submit">Add Staff</button>
       </ion-list>
-      <button ion-button type="submit">Add Equipment</button>
     </form>
   </ion-grid>
 </ion-content>

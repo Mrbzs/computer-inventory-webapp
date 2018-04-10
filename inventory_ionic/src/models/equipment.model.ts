@@ -1,9 +1,9 @@
 export interface Equipment {
-  id?: string;
+  id: string;
   type: EquipmentType;
   name: string;
   description: string;
-  staffId?: string;
+  staffId: string;
 }
 
 export enum EquipmentType {

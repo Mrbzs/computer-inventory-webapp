@@ -3,13 +3,13 @@
     <button ion-button menuToggle>
       <ion-icon color="white" name="menu"></ion-icon>
     </button>
-    <ion-title>Add Equipment</ion-title>
+    <ion-title>Add Lab Assistant</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content text-center>
   <ion-grid fixed>
-    <form [formGroup]="addEquipmentForm" (ngSubmit)="addEquipment()">
+    <form [formGroup]="addLabAssistantForm" (ngSubmit)="addLabAssistant()">
       <ion-list>
         <p padding-left *ngIf="error != ''" class="error">{{ error }}</p>
         <label ion-item class="text-cursor">
@@ -18,18 +18,16 @@
         </label>
 
         <label ion-item class="text-cursor">
-          <ion-label>Description</ion-label>
-          <ion-input formControlName="description" maxlength="60" type="text" text-right></ion-input>
+          <ion-label>Username</ion-label>
+          <ion-input formControlName="username" maxlength="20" type="text" text-right></ion-input>
         </label>
 
-        <ion-item>
-          <ion-label>Type</ion-label>
-          <ion-select formControlName="type">
-            <ion-option *ngFor="let type of types" [value]="type">{{ type }}</ion-option>
-          </ion-select>
-        </ion-item>
+        <label ion-item class="text-cursor">
+          <ion-label>Password</ion-label>
+          <ion-input formControlName="password" maxlength="20" type="text" text-right></ion-input>
+        </label>
+        <button margin-top ion-button type="submit">Add Lab Assistant</button>
       </ion-list>
-      <button ion-button type="submit">Add Equipment</button>
     </form>
   </ion-grid>
 </ion-content>

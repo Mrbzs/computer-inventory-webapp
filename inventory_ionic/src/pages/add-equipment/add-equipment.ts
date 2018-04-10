@@ -4,6 +4,7 @@ import { Equipment, EquipmentType } from '../../models/equipment.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UtilitiesService } from '../../providers/utilities.service';
 import { ApiService } from '../../providers/api.service';
+import { AppData } from '../../providers/app-data.service';
 
 @Component({
   selector: 'page-add-equipment',
@@ -20,7 +21,8 @@ export class AddEquipmentPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public utilities: UtilitiesService,
-    public apiService: ApiService) {
+    public apiService: ApiService,
+    public appData: AppData) {
 
     this.addEquipmentForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -29,8 +31,11 @@ export class AddEquipmentPage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddEquipmentPage');
+  ionViewWillEnter() {
+
+    // Redirect user to login if not logged in
+    if (!this.appData.isLoggedIn())
+      this.navCtrl.setRoot('login');
   }
 
   /**
@@ -56,7 +61,8 @@ export class AddEquipmentPage {
       id: equipmentId,
       name: this.addEquipmentForm.value.name,
       type: this.addEquipmentForm.value.type,
-      description: this.addEquipmentForm.value.description
+      description: this.addEquipmentForm.value.description,
+      staffId: '-'
     };
 
     // Add equipment to database

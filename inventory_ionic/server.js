@@ -40,14 +40,13 @@ app.post('*', (req, res) => {
   const handler = req.url.slice(1);
 
   fs.readFile(`${dataPath}/${handler}.json`, (err, data) => {
-    let dataAdded = JSON.parse(data);
     let json = JSON.parse(data);
-    json.push(JSON.parse(JSON.stringify(req.body)));
+    json.push(req.body);
     fs.writeFile(`${dataPath}/${handler}.json`, JSON.stringify(json), (err) => {
       if (err)
         throw err;
       console.log(`Data added to ${handler}.json`);
-      res.send(dataAdded);
+      res.send(req.body);
     });
   });
 });

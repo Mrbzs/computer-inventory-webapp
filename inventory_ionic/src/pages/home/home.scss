@@ -1,3 +1,30 @@
 page-home {
 
+  .search-topic {
+    margin-top: 0.5rem;
+  }
+
+  ion-select {
+    max-width: 100%;
+  }
+
+  .heading {
+    font-weight: 600;
+    font-size: large;
+  }
+
+  .entries:nth-child(even) {
+    background-color: #ececec;
+  }
+
+  .delete-entry-btn {
+    color: color($colors, danger);
+    font-size: x-large;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
 }

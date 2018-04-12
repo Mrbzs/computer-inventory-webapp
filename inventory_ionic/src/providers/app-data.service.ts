@@ -52,4 +52,13 @@ export class AppData {
     return !!this.user;
   }
 
+  /**
+   * Checks if a user is logged in as an admin
+   *
+   * @return True if user is logged in as admin, false otherwise
+   */
+  isAdmin(): boolean {
+    return this.isLoggedIn() && this.user.role == 'Admin';
+  }
+
 }

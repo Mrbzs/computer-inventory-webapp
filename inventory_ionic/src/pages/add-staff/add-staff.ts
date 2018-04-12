@@ -54,7 +54,7 @@ export class AddStaffPage {
     // Create new staff
     const newStaff: Staff = {
       id: staffId,
-      name: this.addStaffForm.value.name,
+      name: this.utilities.toTitleCase(this.addStaffForm.value.name),
       office: this.addStaffForm.value.office
     };
 

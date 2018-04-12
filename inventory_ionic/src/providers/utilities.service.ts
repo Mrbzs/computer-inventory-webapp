@@ -45,4 +45,16 @@ export class UtilitiesService {
     alert.present();
   }
 
+  /**
+   * Capitalizes first letter of each word of a string
+   *
+   * @param text The string to be converted to title case
+   * @return The string converted to title case
+   */
+  toTitleCase(text: string): string {
+    return text.replace(/\w\S*/g, (txt) => {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  }
+
 }

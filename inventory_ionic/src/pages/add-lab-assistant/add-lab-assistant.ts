@@ -70,7 +70,7 @@ export class AddLabAssistantPage {
         let password: string = shajs('sha256').update(this.addLabAssistantForm.value.password).digest('hex');
         const newLabAssistant: User = {
           id: labAssistantId,
-          name: this.addLabAssistantForm.value.name,
+          name: this.utilities.toTitleCase(this.addLabAssistantForm.value.name),
           role: 'Lab Assistant',
           username: this.addLabAssistantForm.value.username,
           password: password

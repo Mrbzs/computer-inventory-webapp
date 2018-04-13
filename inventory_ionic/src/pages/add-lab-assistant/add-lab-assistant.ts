@@ -53,8 +53,8 @@ export class AddLabAssistantPage {
     }
 
     // Check if username already exists
-    this.apiService.userExists(this.addLabAssistantForm.value.username).subscribe(response => {
-      if (response) {
+    this.apiService.getUserByUsername(this.addLabAssistantForm.value.username).subscribe(response => {
+      if (response.length) {
         this.error = 'Username already in use. Please choose another one';
       }
       else this.error = '';

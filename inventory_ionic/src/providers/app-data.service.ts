@@ -37,10 +37,10 @@ export class AppData {
   /**
    * Saves a user to local browser storage for future auto login
    *
-   * @param userId The userId of the user saved in browser storage
+   * @param username The username of the user to be saved in browser storage
    * */
-  saveUser(userId: string) {
-    window.localStorage['userId'] = userId;
+  saveUsername(username: string) {
+    window.localStorage['username'] = username;
   }
 
   /**

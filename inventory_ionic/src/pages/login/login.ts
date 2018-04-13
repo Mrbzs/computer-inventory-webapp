@@ -50,7 +50,7 @@ export class LoginPage {
       if (response) {
         // Store user in session and browser
         this.appData.user = response;
-        this.appData.saveUser(response.id);
+        this.appData.saveUsername(response.username);
 
         // Navigate to home page
         this.navCtrl.setRoot('home');

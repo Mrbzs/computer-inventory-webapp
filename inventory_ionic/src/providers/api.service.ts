@@ -21,53 +21,24 @@ export class ApiService {
    *
    * @param username The username to be checked
    * @param password The password to be checked
-   * @return The logged in user as an observable or undefined if no user found
+   * @return The logged in user as an observable or null if no user found
    */
   login(username: string, password: string): Observable<User> {
-    return this.http.get<Array<User>>(`${this.serverURL}/users`).map(data => {
-      let dummyUser: User;
-      for (let user of data) {
-        if (username === user.username && password === user.password) {
-          return user;
-        }
-      }
-      return dummyUser;
+    return this.getUserByUsername(username).map( user => {
+      if (user.password == password)
+        return user;
+      return null;
     });
   }
 
   /**
-   * Gets a user with the specified userId
+   * Gets a user with the specified username
    *
-   * @param userId The userId of the user
-   * @return The user with the specified userId or undefined if no user found
+   * @param username The username of the user
+   * @return The user with the specified username or empty array if no user found
    */
-  getUserById(userId: string): Observable<User> {
-    return this.http.get<Array<User>>(`${this.serverURL}/users`).map(data => {
-      let dummyUser: User;
-      for (let user of data) {
-        if (userId === user.id) {
-          return user;
-        }
-      }
-      return dummyUser;
-    });
-  }
-
-  /**
-   * Checks if a username is already registered
-   *
-   * @param username The username to be checked
-   * @return True if username exists, false otherwise
-   */
-  userExists(username: string): Observable<boolean> {
-    return this.http.get<Array<User>>(`${this.serverURL}/users`).map(data => {
-      for (let user of data) {
-        if (username === user.username) {
-          return true;
-        }
-      }
-      return false;
-    });
+  getUserByUsername(username: string): Observable<any> {
+    return this.http.get<User>(`${this.serverURL}/users/${username}`);
   }
 
   /**
@@ -101,59 +72,53 @@ export class ApiService {
   }
 
   /**
-   * Gets all equipments containing specified name. Can be used to get
-   * all equipments by using an empty string as name
+   * Gets all equipments containing specified name
    *
    * @param name The name to be searched in the database
    * @return An array of equipments containing specified name
    */
   getEquipmentByName(name: string): Observable<Array<Equipment>> {
-    return this.http.get<Array<Equipment>>(`${this.serverURL}/equipments`).map(data => {
-      let result: Array<Equipment> = [];
-      for (let equipment of data) {
-        if (equipment.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())) {
-          result.push(equipment);
-        }
+    return this.http.get<Array<Equipment>>(`${this.serverURL}/equipments`).map(equipments => {
+      let results: Array<Equipment> = [];
+      for (let equipment of equipments) {
+        if (equipment.name.toLowerCase().includes(name.toLowerCase()))
+          results.push(equipment);
       }
-      return result;
+      return results;
     });
   }
 
   /**
-   * Gets all entries containing specified name. Can be used to get
-   * all lab assistants by using an empty string as name
+   * Gets all entries containing specified name
    *
    * @param name The name to be searched in the database
    * @return An array of lab assistants containing specified name
    */
   getLabAssistantByName(name: string): Observable<Array<User>> {
-    return this.http.get<Array<User>>(`${this.serverURL}/users`).map(data => {
-      let result: Array<User> = [];
-      for (let user of data) {
-        if (user.name.toLocaleLowerCase().includes(name.toLocaleLowerCase()) && user.role != 'Admin') {
-          result.push(user);
-        }
+    return this.http.get<Array<User>>(`${this.serverURL}/users`).map(users => {
+      let results: Array<User> = [];
+      for (let user of users) {
+        if (user.name.toLowerCase().includes(name.toLowerCase()) && user.role == 'Lab Assistant')
+          results.push(user);
       }
-      return result;
+      return results;
     });
   }
 
   /**
-   * Gets all staff containing specified name. Can be used to get
-   * all staff by using an empty string as name
+   * Gets all staff containing specified name
    *
    * @param name The name to be searched in the database
    * @return An array of staff containing specified name
    */
   getStaffByName(name: string): Observable<Array<Staff>> {
-    return this.http.get<Array<Staff>>(`${this.serverURL}/staff`).map(data => {
-      let result: Array<Staff> = [];
-      for (let staff of data) {
-        if (staff.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())) {
-          result.push(staff);
-        }
+    return this.http.get<Array<Staff>>(`${this.serverURL}/staff`).map(allStaff => {
+      let results: Array<Staff> = [];
+      for (let staffMember of allStaff) {
+        if (staffMember.name.toLowerCase().includes(name.toLowerCase()))
+          results.push(staffMember);
       }
-      return result;
+      return results;
     });
   }
 

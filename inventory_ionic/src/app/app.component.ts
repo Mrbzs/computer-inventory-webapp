@@ -53,11 +53,11 @@ export class MyApp {
    * Checks if user exists in local browser storage and logs them in if so
    */
   autoLogin() {
-    let userId = this.appData.getSavedUser();
+    let username = this.appData.getSavedUser();
 
     // Save user and navigate to home page
-    if (userId) {
-      this.apiService.getUserById(userId).subscribe( user => {
+    if (username) {
+      this.apiService.getUserByUsername(username).subscribe( user => {
         if (user) {
           this.appData.user = user;
           this.nav.setRoot('home');

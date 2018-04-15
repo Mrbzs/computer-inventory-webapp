@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Lab Assistant Details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content *ngIf="labAssistant" padding text-center>
+  <ion-grid fixed>
+    <ion-row class="details" text-left>
+      <ion-col col-2><ion-label>Name</ion-label></ion-col>
+      <ion-col col-10><ion-label>{{ labAssistant.name }}</ion-label></ion-col>
+    </ion-row>
+    <ion-row class="details" text-left>
+      <ion-col col-2><ion-label>Username </ion-label></ion-col>
+      <ion-col col-10><ion-label>{{ labAssistant.username }}</ion-label></ion-col>
+    </ion-row>
+    <ion-row class="details" text-left>
+      <ion-col col-2><ion-label>E-mail </ion-label></ion-col>
+      <ion-col col-10><ion-label>{{ labAssistant.email }}</ion-label></ion-col>
+    </ion-row>
+  </ion-grid>
+  <button ion-button (click)="updateInfo()">Update Details</button>
+</ion-content>

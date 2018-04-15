@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppData } from '../../providers/app-data.service';
 import { UtilitiesService } from '../../providers/utilities.service';
@@ -18,7 +18,6 @@ export class AddLabAssistantPage {
   public error: string = '';
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
     public formBuilder: FormBuilder,
     public appData: AppData,
     public utilities: UtilitiesService,
@@ -27,7 +26,8 @@ export class AddLabAssistantPage {
     this.addLabAssistantForm = this.formBuilder.group({
       name: ['', Validators.required],
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      email: ['']
     });
   }
 
@@ -53,8 +53,8 @@ export class AddLabAssistantPage {
     }
 
     // Check if username already exists
-    this.apiService.getUserByUsername(this.addLabAssistantForm.value.username).subscribe(response => {
-      if (response.length) {
+    this.apiService.getUsersByUsername(this.addLabAssistantForm.value.username).subscribe(response => {
+      if (response.length > 0) {
         this.error = 'Username already in use. Please choose another one';
       }
       else this.error = '';
@@ -63,17 +63,14 @@ export class AddLabAssistantPage {
     }, () => {
       if (!this.error) {
 
-        // Generate labAssistantID
-        let labAssistantId = 'LA-' + this.utilities.randomString(10);
-
         // Create new lab assistant
         let password: string = shajs('sha256').update(this.addLabAssistantForm.value.password).digest('hex');
         const newLabAssistant: User = {
-          id: labAssistantId,
           name: this.utilities.toTitleCase(this.addLabAssistantForm.value.name),
           role: 'Lab Assistant',
           username: this.addLabAssistantForm.value.username,
-          password: password
+          password: password,
+          email: this.addLabAssistantForm.value.email ? this.addLabAssistantForm.value.email : '-'
         };
 
         // Add lab assistant to database

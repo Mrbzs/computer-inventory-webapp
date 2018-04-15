@@ -1,9 +1,13 @@
+// Note: All ids generated automatically by mongodb
+
+import { Staff } from './staff.model';
+
 export interface Equipment {
-  id: string;
+  _id?: any;
   type: EquipmentType;
   name: string;
   description: string;
-  staffId: string;
+  staff: Staff;
 }
 
 export enum EquipmentType {

@@ -25,6 +25,16 @@ page-home {
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+
+    &:hover {
+      color: darken(color($colors, danger), 10%);
+    }
+  }
+
+  .assign-btn {
+    &:hover {
+      background: darken(color($colors, primary), 10%) !important;
+    }
   }
 
 }

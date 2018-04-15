@@ -31,7 +31,7 @@ export class AppData {
    * @return The userId of the user
    */
   getSavedUser(): string {
-    return window.localStorage['userId'];
+    return window.localStorage['username'];
   }
 
   /**

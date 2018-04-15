@@ -35,12 +35,7 @@ export class MyApp {
       { title: 'Add Equipment', component: AddEquipmentPage, isAdminOnly: true },
       { title: 'Add Lab Assistant', component: AddLabAssistantPage, isAdminOnly: true },
       { title: 'Add Staff', component: AddStaffPage, isAdminOnly: true },
-      // { title: 'Delete Equipment', component: DeleteEquipmentPage, isAdminOnly: true },
-      // { title: 'Delete Lab Assistant', component: DeleteLabAssistantPage, isAdminOnly: true },
-      // { title: 'Delete Staff', component: DeleteStaffPage, isAdminOnly: true },
-      // { title: 'Check-in Equipment', component: CheckInPage, isAdminOnly: false },
-      // { title: 'Check-out Equipment', component: CheckOutPage, isAdminOnly: false },
-      // { title: 'Settings', component: SettingsPage, isAdminOnly: false },
+      // { title: 'Account', component: AccountPage, isAdminOnly: false }
     ];
 
     this.activePage = this.pages[0];
@@ -57,9 +52,9 @@ export class MyApp {
 
     // Save user and navigate to home page
     if (username) {
-      this.apiService.getUserByUsername(username).subscribe( user => {
-        if (user) {
-          this.appData.user = user;
+      this.apiService.getUsersByUsername(username).subscribe( users => {
+        if (users[0]) {
+          this.appData.user = users[0];
           this.nav.setRoot('home');
         }
       });

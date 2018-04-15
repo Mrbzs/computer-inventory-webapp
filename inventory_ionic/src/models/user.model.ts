@@ -1,7 +1,10 @@
+// Note: All ids generated automatically by mongodb
+
 export interface User {
-  id: string;
+  _id?: any;
   name: string;
   role: Role;
+  email?: string;
   username: string;
   password: string;
 }

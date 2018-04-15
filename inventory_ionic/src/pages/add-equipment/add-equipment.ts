@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { Equipment, EquipmentType } from '../../models/equipment.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UtilitiesService } from '../../providers/utilities.service';
@@ -18,7 +18,6 @@ export class AddEquipmentPage {
   public error: string = '';
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
     public formBuilder: FormBuilder,
     public utilities: UtilitiesService,
     public apiService: ApiService,
@@ -53,16 +52,12 @@ export class AddEquipmentPage {
     }
     this.error = '';
 
-    // Generate equipmentID
-    let equipmentId = 'EQ-'+this.utilities.randomString(10);
-
     // Create new equipment
     const newEquipment: Equipment = {
-      id: equipmentId,
       name: this.addEquipmentForm.value.name,
       type: this.addEquipmentForm.value.type,
       description: this.addEquipmentForm.value.description,
-      staffId: '-'
+      staff: null
     };
 
     // Add equipment to database

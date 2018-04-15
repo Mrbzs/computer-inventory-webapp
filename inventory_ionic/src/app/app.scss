@@ -27,8 +27,18 @@ ion-menu {
 
 }
 
+ion-header {
+  ion-icon {
+    color: white;
+  }
+}
+
 .text-cursor {
   cursor: text;
+}
+
+.pointer-cursor {
+  cursor: pointer;
 }
 
 /* This is because in firefox, message box has scroll bar on the side even when empty */
@@ -40,4 +50,13 @@ ion-menu {
   text-align: left;
   color: red;
   font-size: 16px;
+}
+
+.arrow {
+  font-size: x-large;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }

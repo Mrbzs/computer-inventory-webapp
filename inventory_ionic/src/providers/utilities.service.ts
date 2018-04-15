@@ -9,20 +9,6 @@ export class UtilitiesService {
   }
 
   /**
-   * Generates a string made up of random lower case characters and numbers.
-   * @param length The length of the generated string
-   */
-  public randomString(length: number): string {
-    let text = '';
-    let possible = 'abcdefghijkmnopqrstuvwxyz0123456789';
-
-    while (length--)
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
-  }
-
-  /**
    * Shows an alert with needed title/subtitle (AlertController)
    * @param subTitle Subtitle of the alert
    * @param title Title of the alert, default is 'Information'
@@ -39,6 +25,32 @@ export class UtilitiesService {
         {
           text: 'Ok',
           handler: okHandler
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  /**
+   * Shows an alert with needed title/subtitle (AlertController)
+   * @param subTitle Subtitle of the alert
+   * @param title Title of the alert, default is 'Confirm'
+   * @param yesHandler Optional handler to be called when the user taps the YES button
+   */
+  showConfirmationAlert(subTitle: string, title?: string, yesHandler?: () => void) {
+    if (!title) {
+      title = 'Confirm';
+    }
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: [
+        {
+          text: 'Yes',
+          handler: yesHandler
+        },
+        {
+          text: 'No'
         }
       ]
     });

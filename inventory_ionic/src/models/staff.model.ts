@@ -1,8 +1,8 @@
-import { Equipment } from './equipment.model';
+// Note: All ids generated automatically by mongodb
 
 export interface Staff {
-  id: string;
+  _id?: any;
   name: string;
   office: string;
-  equipments?: Array<Equipment>
+  email?: string;
 }

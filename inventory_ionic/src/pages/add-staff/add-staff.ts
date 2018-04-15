@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppData } from '../../providers/app-data.service';
 import { UtilitiesService } from '../../providers/utilities.service';
@@ -16,7 +16,6 @@ export class AddStaffPage {
   public error: string = '';
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
     public formBuilder: FormBuilder,
     public appData: AppData,
     public utilities: UtilitiesService,
@@ -24,7 +23,8 @@ export class AddStaffPage {
 
     this.addStaffForm = this.formBuilder.group({
       name: ['', Validators.required],
-      office: ['', Validators.required]
+      office: ['', Validators.required],
+      email: ['']
     });
   }
 
@@ -48,14 +48,11 @@ export class AddStaffPage {
     }
     this.error = '';
 
-    // Generate staffID
-    let staffId = 'ST-'+this.utilities.randomString(10);
-
     // Create new staff
     const newStaff: Staff = {
-      id: staffId,
       name: this.utilities.toTitleCase(this.addStaffForm.value.name),
-      office: this.addStaffForm.value.office
+      office: this.addStaffForm.value.office,
+      email: this.addStaffForm.value.email ? this.addStaffForm.value.email : '-'
     };
 
     // Add staff to database

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <button ion-button menuToggle>
-      <ion-icon color="white" name="menu"></ion-icon>
+      <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Add Staff</ion-title>
   </ion-navbar>
@@ -15,6 +15,11 @@
         <label ion-item class="text-cursor">
           <ion-label>Name</ion-label>
           <ion-input formControlName="name" maxlength="50" type="text" text-right></ion-input>
+        </label>
+
+        <label ion-item class="text-cursor">
+          <ion-label>E-mail (Optional)</ion-label>
+          <ion-input formControlName="email" maxlength="50" type="text" text-right></ion-input>
         </label>
 
         <label ion-item class="text-cursor">

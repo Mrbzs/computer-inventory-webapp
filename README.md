@@ -17,5 +17,5 @@ To run this webapp on your local machine, please follow the following instructio
 4. Clone the github repository to your local machine
 5. Run command **npm install** inside inventory_ionic subfolder to install app dependencies
 6. Start MongoDB on your machine
-7. Run command **node server.js** to start local server and connect to database
+7. Run command **node server.js** inside inventory_ionic subfolder to start local server and connect to database
 8. Run command **ionic serve** inside inventory_ionic subfolder to build and run the app. The app should now be accessible on localhost:8100

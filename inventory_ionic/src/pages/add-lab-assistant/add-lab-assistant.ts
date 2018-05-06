@@ -31,11 +31,18 @@ export class AddLabAssistantPage {
     });
   }
 
-  ionViewWillEnter() {
-
+  ionViewCanEnter() {
     // Redirect user to login if not logged in
-    if (!this.appData.isLoggedIn())
-      this.navCtrl.setRoot('login');
+    if (!this.appData.isLoggedIn()) {
+      setTimeout(() => this.navCtrl.setRoot('login'));
+    }
+
+    // Redirect user to home if not admin
+    else if (!this.appData.isAdmin()) {
+      setTimeout(() => this.navCtrl.setRoot('home'));
+    }
+
+    return this.appData.isAdmin();
   }
 
   /**

@@ -4,7 +4,7 @@ import { AppData } from '../../providers/app-data.service';
 import { ApiService } from '../../providers/api.service';
 import { UtilitiesService } from '../../providers/utilities.service';
 import { Staff } from '../../models/staff.model';
-import { Equipment } from '../../models/equipment.model';
+import { Equipment, EquipmentType } from '../../models/equipment.model';
 
 @Component({
   selector: 'page-home',
@@ -12,9 +12,12 @@ import { Equipment } from '../../models/equipment.model';
 })
 export class HomePage {
 
+  // Get types from enum
+  public types: Array<string> = Object.keys(EquipmentType).slice(Object.keys(EquipmentType).length/2);
   public searchTopic: string;
   public searchResults: Array<any>;
   public searchValue: string = '';
+  public equipmentType: string = 'All Types';
   public equipment: any;
 
   constructor(public navCtrl: NavController,
@@ -53,7 +56,18 @@ export class HomePage {
         break;
     }
     this.apiService.getEntriesByName(this.searchValue, collection).subscribe( data => {
-      this.searchResults = data;
+      if (this.searchTopic == 'Equipments') {
+        if (this.equipmentType == 'All Types')
+          this.searchResults = data;
+        else {
+          this.searchResults = [];
+          for (let entry of data) {
+            if (this.equipmentType == entry.type.toString())
+              this.searchResults.push(entry);
+          }
+        }
+      }
+      else this.searchResults = data;
       console.log('Table successfully updated');
     }, err => {
       console.log('Error updating table', err);

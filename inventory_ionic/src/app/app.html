@@ -11,7 +11,7 @@
   <ion-content>
     <ion-list>
       <button menuClose ion-item *ngFor="let page of pages" (click)="openPage(page)"
-              [class.activeHighlight]="checkActive(page)">
+              [class.displayNone]="page.isAdminOnly && !appData.isAdmin()" [class.activeHighlight]="checkActive(page)">
         {{ page.title }}
       </button>
     </ion-list>

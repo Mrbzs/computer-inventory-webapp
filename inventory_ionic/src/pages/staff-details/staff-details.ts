@@ -23,11 +23,17 @@ export class StaffDetailsPage {
     public apiService: ApiService,
     public utilities: UtilitiesService) {
     this.staff = this.navParams.get('item');
+  }
 
-    // Redirect user to login if not logged in
-    if (!this.appData.isLoggedIn())
-      this.navCtrl.setRoot('login');
+  ionViewCanEnter() {
+    // Redirect user to home if no staff
+    if (!this.staff) {
+      setTimeout(() => this.navCtrl.setRoot('home'));
+    }
+    return this.staff;
+  }
 
+  ionViewWillEnter() {
     // Get equipments
     this.apiService.getEquipmentsByStaff(this.staff).subscribe(response => {
       console.log('Success - Loaded equipments', response);

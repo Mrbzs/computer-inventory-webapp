@@ -24,15 +24,23 @@ export class AddStaffPage {
     this.addStaffForm = this.formBuilder.group({
       name: ['', Validators.required],
       office: ['', Validators.required],
+      phone: ['', Validators.required],
       email: ['']
     });
   }
 
-  ionViewWillEnter() {
-
+  ionViewCanEnter() {
     // Redirect user to login if not logged in
-    if (!this.appData.isLoggedIn())
-      this.navCtrl.setRoot('login');
+    if (!this.appData.isLoggedIn()) {
+      setTimeout(() => this.navCtrl.setRoot('login'));
+    }
+
+    // Redirect user to home if not admin
+    else if (!this.appData.isAdmin()) {
+      setTimeout(() => this.navCtrl.setRoot('home'));
+    }
+
+    return this.appData.isAdmin();
   }
 
   /**
@@ -52,6 +60,7 @@ export class AddStaffPage {
     const newStaff: Staff = {
       name: this.utilities.toTitleCase(this.addStaffForm.value.name),
       office: this.addStaffForm.value.office,
+      phone: this.addStaffForm.value.phone,
       email: this.addStaffForm.value.email ? this.addStaffForm.value.email : '-'
     };
 

@@ -20,11 +20,14 @@ export class LabAssistantDetailsPage {
     public apiService: ApiService,
     public utilities: UtilitiesService) {
     this.labAssistant = this.navParams.get('item');
+  }
 
-    // Redirect user to login if not logged in
-    if (!this.appData.isLoggedIn())
-      this.navCtrl.setRoot('login');
-
+  ionViewCanEnter() {
+    // Redirect user to home if no lab assistant
+    if (!this.labAssistant) {
+      setTimeout(() => this.navCtrl.setRoot('home'));
+    }
+    return this.labAssistant;
   }
 
   /**

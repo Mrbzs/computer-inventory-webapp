@@ -7,6 +7,7 @@ import { LoginPage } from '../pages/login/login';
 import { AddEquipmentPage } from '../pages/add-equipment/add-equipment';
 import { AddLabAssistantPage } from '../pages/add-lab-assistant/add-lab-assistant';
 import { AddStaffPage } from '../pages/add-staff/add-staff';
+import { AccountPage } from '../pages/account/account';
 import { AppData } from '../providers/app-data.service';
 import { ApiService } from '../providers/api.service';
 
@@ -35,7 +36,7 @@ export class MyApp {
       { title: 'Add Equipment', component: AddEquipmentPage, isAdminOnly: true },
       { title: 'Add Lab Assistant', component: AddLabAssistantPage, isAdminOnly: true },
       { title: 'Add Staff', component: AddStaffPage, isAdminOnly: true },
-      // { title: 'Account', component: AccountPage, isAdminOnly: false }
+      { title: 'Account', component: AccountPage, isAdminOnly: false }
     ];
 
     this.activePage = this.pages[0];

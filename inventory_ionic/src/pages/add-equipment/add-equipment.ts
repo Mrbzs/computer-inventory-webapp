@@ -30,11 +30,18 @@ export class AddEquipmentPage {
     });
   }
 
-  ionViewWillEnter() {
-
+  ionViewCanEnter() {
     // Redirect user to login if not logged in
-    if (!this.appData.isLoggedIn())
-      this.navCtrl.setRoot('login');
+    if (!this.appData.isLoggedIn()) {
+      setTimeout(() => this.navCtrl.setRoot('login'));
+    }
+
+    // Redirect user to home if not admin
+    else if (!this.appData.isAdmin()) {
+      setTimeout(() => this.navCtrl.setRoot('home'));
+    }
+
+    return this.appData.isAdmin();
   }
 
   /**
@@ -53,20 +60,23 @@ export class AddEquipmentPage {
     this.error = '';
 
     // Create new equipment
-    const newEquipment: Equipment = {
-      name: this.addEquipmentForm.value.name,
-      type: this.addEquipmentForm.value.type,
-      description: this.addEquipmentForm.value.description,
-      staff: null
-    };
+    this.apiService.getNextEquipmentSerial().subscribe(response => {
+      const newEquipment: Equipment = {
+        name: this.addEquipmentForm.value.name,
+        serial: 'EQ-'+response,
+        type: this.addEquipmentForm.value.type,
+        description: this.addEquipmentForm.value.description,
+        staff: null
+      };
 
-    // Add equipment to database
-    this.apiService.addEquipment(newEquipment).subscribe( response => {
-      console.log('Success - Adding equipment', response);
-      this.utilities.showAlert('Equipment successfully added', 'Success');
-    }, err => {
-      console.log('Error - Adding equipment', err);
-      this.utilities.showAlert('Something went wrong. Please try again later', 'Error');
+      // Add equipment to database
+      this.apiService.addEquipment(newEquipment).subscribe( response => {
+        console.log('Success - Adding equipment', response);
+        this.utilities.showAlert('Equipment successfully added', 'Success');
+      }, err => {
+        console.log('Error - Adding equipment', err);
+        this.utilities.showAlert('Something went wrong. Please try again later', 'Error');
+      });
     });
   }
 

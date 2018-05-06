@@ -4,6 +4,7 @@ import { Staff } from './staff.model';
 
 export interface Equipment {
   _id?: any;
+  serial: string;
   type: EquipmentType;
   name: string;
   description: string;

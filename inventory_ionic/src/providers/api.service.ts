@@ -157,4 +157,25 @@ export class ApiService {
     );
   }
 
+  /**
+   * Gets next equipment serial number
+   *
+   * @return The serial number for the new equipment
+   */
+  getNextEquipmentSerial(): Observable<number> {
+    return this.http.get<Array<Equipment>>(`${this.serverURL}/equipments`).pipe(
+      map(equipments => {
+        let serial: number = 0;
+        for (let equipment of equipments) {
+          console.log(parseInt(equipment.serial.substring(3)));
+          if (parseInt(equipment.serial.substring(3)) > serial) {
+            serial = parseInt(equipment.serial.substring(3));
+          }
+        }
+        return serial+1;
+      }),
+      catchError(err => Observable.throw(err))
+    );
+  }
+
 }

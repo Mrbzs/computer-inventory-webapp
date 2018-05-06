@@ -13,6 +13,7 @@ import { AddStaffPage } from '../pages/add-staff/add-staff';
 import { LabAssistantDetailsPage } from '../pages/lab-assistant-details/lab-assistant-details';
 import { EquipmentDetailsPage } from '../pages/equipment-details/equipment-details';
 import { StaffDetailsPage } from '../pages/staff-details/staff-details';
+import { AccountPage } from '../pages/account/account';
 import { ApiService } from '../providers/api.service';
 import { AppData } from '../providers/app-data.service';
 import { UtilitiesService } from '../providers/utilities.service';
@@ -27,7 +28,8 @@ import { UtilitiesService } from '../providers/utilities.service';
     AddStaffPage,
     LabAssistantDetailsPage,
     EquipmentDetailsPage,
-    StaffDetailsPage
+    StaffDetailsPage,
+    AccountPage
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { UtilitiesService } from '../providers/utilities.service';
         { component: AddStaffPage, name: 'add-staff', segment: 'add-staff' },
         { component: LabAssistantDetailsPage, name: 'lab-assistant-details', segment: 'lab-assistant-details' },
         { component: EquipmentDetailsPage, name: 'equipment-details', segment: 'equipment-details' },
-        { component: StaffDetailsPage, name: 'staff-details', segment: 'staff-details' }
+        { component: StaffDetailsPage, name: 'staff-details', segment: 'staff-details' },
+        { component: AccountPage, name: 'account', segment: 'account' }
       ]
     })
   ],
@@ -55,7 +58,8 @@ import { UtilitiesService } from '../providers/utilities.service';
     AddStaffPage,
     LabAssistantDetailsPage,
     EquipmentDetailsPage,
-    StaffDetailsPage
+    StaffDetailsPage,
+    AccountPage
   ],
   providers: [
     StatusBar,

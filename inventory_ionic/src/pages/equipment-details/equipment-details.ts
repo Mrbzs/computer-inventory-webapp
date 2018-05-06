@@ -21,10 +21,14 @@ export class EquipmentDetailsPage {
     public utilities: UtilitiesService) {
     this.equipment = this.navParams.get('item');
 
-    // Redirect user to login if not logged in
-    if (!this.appData.isLoggedIn())
-      this.navCtrl.setRoot('login');
+  }
 
+  ionViewCanEnter() {
+    // Redirect user to home if no equipment
+    if (!this.equipment) {
+      setTimeout(() => this.navCtrl.setRoot('home'));
+    }
+    return this.equipment;
   }
 
   /**

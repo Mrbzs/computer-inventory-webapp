@@ -16,6 +16,9 @@
 // automatically applied to the <body> element in the app.
 
 ion-menu {
+  .displayNone {
+    display: none;
+  }
 
   .menu-hide {
     display: none;
@@ -24,7 +27,6 @@ ion-menu {
   .activeHighlight {
     background-color: #ececec;
   }
-
 }
 
 ion-header {

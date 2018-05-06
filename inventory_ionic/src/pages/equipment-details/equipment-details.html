@@ -7,6 +7,10 @@
 <ion-content *ngIf="equipment" padding text-center="">
   <ion-grid fixed>
     <ion-row class="details" text-left>
+      <ion-col col-2><ion-label>Serial</ion-label></ion-col>
+      <ion-col col-10><ion-label>{{ equipment.serial }}</ion-label></ion-col>
+    </ion-row>
+    <ion-row class="details" text-left>
       <ion-col col-2><ion-label>Name</ion-label></ion-col>
       <ion-col col-10><ion-label>{{ equipment.name }}</ion-label></ion-col>
     </ion-row>

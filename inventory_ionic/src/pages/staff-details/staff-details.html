@@ -11,11 +11,15 @@
       <ion-col col-10><ion-label>{{ staff.name }}</ion-label></ion-col>
     </ion-row>
     <ion-row class="details" text-left>
-      <ion-col col-2><ion-label>Office </ion-label></ion-col>
+      <ion-col col-2><ion-label>Office</ion-label></ion-col>
       <ion-col col-10><ion-label>{{ staff.office }}</ion-label></ion-col>
     </ion-row>
     <ion-row class="details" text-left>
-      <ion-col col-2><ion-label>E-mail </ion-label></ion-col>
+      <ion-col col-2><ion-label>Phone</ion-label></ion-col>
+      <ion-col col-10><ion-label>{{ staff.phone }}</ion-label></ion-col>
+    </ion-row>
+    <ion-row class="details" text-left>
+      <ion-col col-2><ion-label>E-mail</ion-label></ion-col>
       <ion-col col-10><ion-label>{{ staff.email }}</ion-label></ion-col>
     </ion-row>
     <ion-row class="details pointer-cursor" text-left (click)="toggleEquipments()">
@@ -24,6 +28,7 @@
       <span *ngIf="showEquipments">
         <ion-label *ngFor="let eq of equipments">
           Name: {{ eq.name }}<br>
+          Serial: {{ eq.serial }}<br>
           Type: {{ eq.type }}<br>
           Description: {{ eq.description }}
         </ion-label>

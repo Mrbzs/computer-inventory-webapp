@@ -3,7 +3,6 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AppData } from '../../providers/app-data.service';
 import { ApiService } from '../../providers/api.service';
 import { UtilitiesService } from '../../providers/utilities.service';
-import { Staff } from '../../models/staff.model';
 import { Equipment, EquipmentType } from '../../models/equipment.model';
 
 @Component({
@@ -30,11 +29,15 @@ export class HomePage {
     this.searchTopic = this.equipment ? 'Staff' : 'Equipments';
   }
 
-  ionViewWillEnter() {
+  ionViewCanEnter() {
     // Redirect user to login if not logged in
-    if (!this.appData.isLoggedIn())
-      this.navCtrl.setRoot('login');
+    if (!this.appData.isLoggedIn()) {
+      setTimeout(() => this.navCtrl.setRoot('login'));
+    }
+    return this.appData.isLoggedIn();
+  }
 
+  ionViewWillEnter() {
     // Update table when user accesses page
     this.updateTable();
   }
@@ -97,6 +100,18 @@ export class HomePage {
       // Delete entry
       this.apiService.deleteEntryById(item._id, collection).subscribe(result => {
         if (result) {
+          // If staff deleted, free all equipments assigned to them
+          if (collection == 'staff') {
+            this.apiService.getEquipmentsByStaff(item).subscribe(result => {
+              for (let equipment of result) {
+                equipment.staff = null;
+                this.apiService.updateEntryById(equipment._id, 'equipments', equipment).subscribe(() => {
+                  console.log('Removed staff from equipment');
+                });
+              }
+            });
+          }
+
           // Update display table
           this.updateTable();
         }

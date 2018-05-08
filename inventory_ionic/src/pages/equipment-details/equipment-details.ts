@@ -47,7 +47,7 @@ export class EquipmentDetailsPage {
 
     // Update equipment
     this.apiService.updateEntryById(this.equipment._id, 'equipments', newEquipment).subscribe(() => {
-        this.utilities.showAlert('Staff assigned successfully', '', () => {
+        this.utilities.showAlert('Staff removed successfully', '', () => {
         this.equipment.staff = null;
       });
     }, () => {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AppData } from '../../providers/app-data.service';
 import { UtilitiesService } from '../../providers/utilities.service';
 import { ApiService } from '../../providers/api.service';
@@ -27,7 +27,7 @@ export class AddLabAssistantPage {
       name: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
-      email: ['']
+      email: ['', this.emailOrEmpty]
     });
   }
 
@@ -46,6 +46,13 @@ export class AddLabAssistantPage {
   }
 
   /**
+   * Custom validator for e-mail. Can be empty or valid email
+   */
+  emailOrEmpty(control: AbstractControl): ValidationErrors | null {
+    return control.value === '' ? null : Validators.email(control);
+  }
+
+  /**
    * Adds a lab assistant to the database
    */
   addLabAssistant() {
@@ -55,7 +62,9 @@ export class AddLabAssistantPage {
         this.error = 'Please enter a lab assistant name';
       else if (this.addLabAssistantForm.value.username == '')
         this.error = 'Please enter username for the lab assistant';
-      else this.error = 'Please enter password for the lab assistant';
+      else if (this.addLabAssistantForm.value.password == '')
+        this.error = 'Please enter password for the lab assistant';
+      else this.error = 'Please enter a valid e-mail';
       return;
     }
 
@@ -83,6 +92,10 @@ export class AddLabAssistantPage {
         // Add lab assistant to database
         this.apiService.addLabAssistant(newLabAssistant).subscribe(response => {
           console.log('Success - Adding lab assistant', response);
+
+          // Clear form
+          this.addLabAssistantForm.reset();
+
           this.utilities.showAlert('Lab assistant successfully added. They can now login and use the system.', 'Success');
         }, err => {
           console.log('Error - Adding staff', err);

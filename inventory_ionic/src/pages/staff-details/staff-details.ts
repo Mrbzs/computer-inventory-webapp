@@ -57,6 +57,10 @@ export class StaffDetailsPage {
           placeholder: 'New office'
         },
         {
+          name: 'phone',
+          placeholder: 'New phone'
+        },
+        {
           name: 'email',
           placeholder: 'New e-mail'
         }
@@ -72,6 +76,7 @@ export class StaffDetailsPage {
             let newStaff: Staff = Object.assign({}, this.staff); // Copy object
             if (data.office) newStaff.office = data.office;
             if (data.email) newStaff.email = data.email;
+            if (data.phone) newStaff.phone = data.phone;
 
             // Update database
             this.apiService.updateEntryById(this.staff._id, 'staff', newStaff).subscribe(() => {

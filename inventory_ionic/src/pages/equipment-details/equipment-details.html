@@ -28,6 +28,7 @@
       <ion-col col-1><ion-icon class="arrow" item-right [name]="showStaff ? 'arrow-dropup' : 'arrow-dropdown'"></ion-icon></ion-col>
       <ion-label padding-left *ngIf="showStaff && equipment.staff">
         Office: {{ equipment.staff.office }}<br>
+        Phone: {{ equipment.staff.phone }}<br>
         E-mail: {{ equipment.staff.email }}
       </ion-label>
     </ion-row>

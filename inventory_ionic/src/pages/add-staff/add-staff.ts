@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AppData } from '../../providers/app-data.service';
 import { UtilitiesService } from '../../providers/utilities.service';
 import { Staff } from '../../models/staff.model';
@@ -14,6 +14,7 @@ export class AddStaffPage {
 
   public addStaffForm: FormGroup;
   public error: string = '';
+  public staffExists: boolean = false;
 
   constructor(public navCtrl: NavController,
     public formBuilder: FormBuilder,
@@ -24,8 +25,8 @@ export class AddStaffPage {
     this.addStaffForm = this.formBuilder.group({
       name: ['', Validators.required],
       office: ['', Validators.required],
-      phone: ['', Validators.required],
-      email: ['']
+      phone: ['', [Validators.required, Validators.pattern(/^[0-9 +-]+$/)]],
+      email: ['', this.emailOrEmpty]
     });
   }
 
@@ -44,6 +45,13 @@ export class AddStaffPage {
   }
 
   /**
+   * Custom validator for e-mail. Can be empty or valid email
+   */
+  emailOrEmpty(control: AbstractControl): ValidationErrors | null {
+    return control.value === '' ? null : Validators.email(control);
+  }
+
+  /**
    * Adds a staff to the database
    */
   addStaff() {
@@ -51,7 +59,11 @@ export class AddStaffPage {
     if (!this.addStaffForm.valid) {
       if (this.addStaffForm.value.name == '')
         this.error = 'Please enter a staff name';
-      else this.error = 'Please enter staff office';
+      else if (this.addStaffForm.value.office == '')
+        this.error = 'Please enter staff office';
+      else if (!this.addStaffForm.get('email').valid)
+        this.error = 'Please enter a valid e-mail';
+      else this.error = 'Please enter a valid phone number';
       return;
     }
     this.error = '';
@@ -64,13 +76,30 @@ export class AddStaffPage {
       email: this.addStaffForm.value.email ? this.addStaffForm.value.email : '-'
     };
 
-    // Add staff to database
-    this.apiService.addStaff(newStaff).subscribe( response => {
-      console.log('Success - Adding staff', response);
-      this.utilities.showAlert('Staff successfully added', 'Success');
-    }, err => {
-      console.log('Error - Adding staff', err);
-      this.utilities.showAlert('Something went wrong. Please try again later', 'Error');
+    // Check if staff already exists
+    this.apiService.getEntriesByName('', 'staff').subscribe(response => {
+      for (let staff of response) {
+        if (newStaff.name == staff.name && newStaff.office == staff.office && newStaff.phone == staff.phone && newStaff.email == staff.email)
+          this.staffExists = true;
+      }
+
+      if (this.staffExists) {
+        this.staffExists = !this.staffExists;
+        this.error = 'Staff already exists in database';
+      } else {
+        // Add staff to database
+        this.apiService.addStaff(newStaff).subscribe( response => {
+          console.log('Success - Adding staff', response);
+
+          // Clear form
+          this.addStaffForm.reset();
+
+          this.utilities.showAlert('Staff successfully added', 'Success');
+        }, err => {
+          console.log('Error - Adding staff', err);
+          this.utilities.showAlert('Something went wrong. Please try again later', 'Error');
+        });
+      }
     });
   }
 }

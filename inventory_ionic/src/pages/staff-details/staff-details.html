@@ -26,7 +26,8 @@
       <ion-col col-11><ion-label>Show assigned equipments</ion-label></ion-col>
       <ion-col col-1><ion-icon class="arrow" [name]="showEquipments ? 'arrow-dropup' : 'arrow-dropdown'" item-right></ion-icon></ion-col>
       <span *ngIf="showEquipments">
-        <ion-label *ngFor="let eq of equipments">
+        <ion-label *ngIf="!equipments.length" padding-left>None</ion-label>
+        <ion-label *ngFor="let eq of equipments" padding-left>
           Name: {{ eq.name }}<br>
           Serial: {{ eq.serial }}<br>
           Type: {{ eq.type }}<br>

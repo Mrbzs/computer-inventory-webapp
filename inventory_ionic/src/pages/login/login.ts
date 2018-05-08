@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { MenuController, NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../providers/api.service';
 import { AppData } from '../../providers/app-data.service';
@@ -20,12 +20,24 @@ export class LoginPage {
     public formBuilder: FormBuilder,
     public apiService: ApiService,
     public appData: AppData,
-    public utilities: UtilitiesService) {
+    public utilities: UtilitiesService,
+    public menu: MenuController) {
+
+    // Disable side menu swipe for login page
+    this.menu.swipeEnable(false);
 
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+  }
+
+  ionViewCanEnter() {
+    // Redirect user to home if logged in
+    if (this.appData.isLoggedIn()) {
+      setTimeout(() => this.navCtrl.setRoot('home'));
+    }
+    return !this.appData.isLoggedIn();
   }
 
   /**

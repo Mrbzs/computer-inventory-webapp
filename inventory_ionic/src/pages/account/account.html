@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-grid fixed>
-    <h4>You are logged in as {{ appData.user.username }}</h4>
+    <h4 *ngIf="appData.user">You are logged in as {{ appData.user.username }}</h4>
     <ion-row>
       <ion-col>
         <button ion-button color="primary" (click)="logout()">Logout</button>
